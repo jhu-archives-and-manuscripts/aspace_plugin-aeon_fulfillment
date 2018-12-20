@@ -398,6 +398,13 @@ configuration like this:
   AppConfig[:aeon_fulfillment_record_types] = ['archival_object', 'accession', 'other_record_type']
 ```
 
+This version of the plugin also provides a mapper for Resource records, but it is not enabled
+by default. To enable it along side the default mappers, you would specify the list in the
+configuration file as follows:
+```ruby
+  AppConfig[:aeon_fulfillment_record_types] = ['archival_object', 'accession', 'resource']
+```
+
 It is possible to override the default mappers by providing a custom mapper class.
 Mapper classes register to handle record types by calling the class method
 #register_for_record_type(type), like this:
@@ -408,7 +415,7 @@ Mapper classes register to handle record types by calling the class method
 
 The custom mapping class should inherit from one of the provided mapper classes and then
 implement whatever custom mappings are required by overriding the relevant methods. (See
-the default mappers for examples, as they override behavior from the base AeonRecordMapper class)
+the provided mappers for examples, as they override behavior from the base AeonRecordMapper class)
 
 The custom mapping class can be loaded from another plugin provided it is listed after this
 plugin in the array of plugins in the configuration.
