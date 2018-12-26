@@ -61,22 +61,8 @@ class AeonRecordMapper
                 puts "Aeon Fulfillment Plugin -- Could not find plugin settings for the repository: \"#{self.repo_code}\"."
             else
                 puts "Aeon Fulfillment Plugin -- Checking for top containers"
-                has_top_container = false
 
-                instances = self.record.json['instances']
-                if instances
-                    instances.each do |instance|
-
-                        sub_container = instance.dig('sub_container')
-                        next if !sub_container
-
-                        top_container_uri = sub_container.dig('top_container', 'ref')
-
-                        if top_container_uri.present?
-                            has_top_container = true
-                        end
-                    end
-                end
+                has_top_container = has_top_container?(self.record.json['instances'])
 
                 has_top_container = true if record.is_a?(Container)
 
@@ -318,4 +304,24 @@ class AeonRecordMapper
 
 
     protected :json_fields, :record_fields, :system_information
+
+    private
+
+    def has_top_container?(instances)
+        instances = self.record.json['instances']
+        if instances
+            instances.each do |instance|
+                sub_container = instance.dig('sub_container')
+                next if !sub_container
+
+                top_container_uri = sub_container.dig('top_container', 'ref')
+                if top_container_uri.present?
+                    return true
+                end
+            end
+        end
+
+        false
+    end
+
 end
