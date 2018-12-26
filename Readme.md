@@ -180,7 +180,11 @@ AppConfig[:aeon_fulfillment] = {
 
 - **:requests\_permitted\_for\_containers\_only**. This settings specifies 
   whether requests are limited to resources with top containers only. The 
-  default for this setting is `false`. 
+  default for this setting is `false`.
+
+- **:resource\_requests\_permitted\_for\_containers\_only**. This setting
+  specifies whether the request button is inactive for resource (collection)
+  records without top containers. The default for this setting is `false`.
 
 - **:aeon\_external\_system\_id**. This setting specifies the System ID, which 
   is used by Aeon to determine which mapping rules to use from its 
